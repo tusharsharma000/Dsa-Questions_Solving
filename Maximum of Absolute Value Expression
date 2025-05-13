@@ -1,0 +1,39 @@
+Given two arrays of integers with equal lengths, return the maximum value of:
+
+|arr1[i] - arr1[j]| + |arr2[i] - arr2[j]| + |i - j|
+
+where the maximum is taken over all 0 <= i, j < arr1.length.
+
+ Example 1:
+
+Input: arr1 = [1,2,3,4], arr2 = [-1,4,5,6]
+Output: 13
+
+
+Approach - it can have 8 cominations 2 from arr1, 2 from array2 and 2 from i-j so 2*2*2 = 8 but i-j comibnations will be same since they are indexes so we should consider 2*2 = 4 combinations;
+Cominations - arr1[i] + arr2[i] + i , arr1[i] + arr2[i] - i, arr1[i] - arr2[i] + i, arr1[i] - arr2[i] - i
+
+Code  
+
+var maxAbsValExpr = function(arr1, arr2) {
+    let firstMax = arr1[0] + arr2[0]+0;
+    let firstMin = arr1[0] + arr2[0]+0;
+    let secondMax = arr1[0] + arr2[0]-0;
+    let secondMin = arr1[0] + arr2[0]-0;
+    let thirdMax = arr1[0] - arr2[0]+0;
+    let thirdMin = arr1[0] - arr2[0]+0;
+    let fourthMax = arr1[0] - arr2[0]-0;
+    let fourthMin = arr1[0] - arr2[0]-0;
+    for (let i=1;i<arr1.length;i++) {
+        firstMax = Math.max(firstMax, arr1[i] + arr2[i]+i);
+        firstMin = Math.min(firstMin, arr1[i] + arr2[i]+i);
+        secondMax = Math.max(secondMax, arr1[i] + arr2[i]-i);
+        secondMin = Math.min(secondMin, arr1[i] + arr2[i]-i);
+        thirdMax = Math.max(thirdMax, arr1[i] - arr2[i]+i);
+        thirdMin = Math.min(thirdMin, arr1[i] - arr2[i]+i);
+        fourthMax = Math.max(fourthMax, arr1[i] - arr2[i]-i);
+        fourthMin = Math.min(fourthMin, arr1[i] - arr2[i]-i);
+        
+    }
+    return Math.max(firstMax - firstMin,secondMax - secondMin,thirdMax - thirdMin,  fourthMax- fourthMin);
+};
