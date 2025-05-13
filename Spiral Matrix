@@ -1,0 +1,44 @@
+Spiral Matrix
+Given an m x n matrix, return all elements of the matrix in spiral order.
+
+
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,3,6,9,8,7,4,5]
+
+
+Code- 
+
+var spiralOrder = function(n) {
+          let arr = [];
+    let left = 0, right = n[0].length-1, top = 0, bottom = n.length-1
+    let row = 0
+    while(left<= right && top<=bottom) {
+        for (let i=left;i<=right;i++) {
+            arr[row] = n[top][i];
+            row++;
+        }
+        top++;
+        console.log(arr);
+        for (let i=top;i<=bottom;i++) {
+            arr[row] = n[i][right];
+            row++;
+        }
+        right--;
+       if (top<=bottom) {
+        for (i=right;i>=left;i--) {
+            arr[row] =n[bottom][i];
+            row++;
+        }
+       }
+       bottom--;
+       if (left<=right) {
+          for (i=bottom;i>=top;i--) {
+              arr[row] =n[i][left];
+            row++;
+        }
+       }
+       left++;
+         console.log(arr);
+    }
+    return arr;
+};
