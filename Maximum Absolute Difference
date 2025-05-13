@@ -14,7 +14,6 @@ module.exports = {
  //param A : array of integers
  //return an integer
 	maxArr : function(A){
-        let maxSum = 0;
         let firstCaseMax = A[0]+0
         let firstCaseMin = A[0]+0;
         let secondCaseMax = A[0]-0
@@ -24,9 +23,7 @@ module.exports = {
             firstCaseMin = Math.min(A[i]+i, firstCaseMin);
             secondCaseMax = Math.max(A[i]- i, secondCaseMax);
             secondCaseMin = Math.min(A[i]-i, secondCaseMin);
-            
-            maxSum = Math.max(Math.abs(firstCaseMax-firstCaseMin), Math.abs(secondCaseMax - secondCaseMin))
         }
-        return maxSum;
+        return Math.max(firstCaseMax-firstCaseMin, secondCaseMax - secondCaseMin);
 	}
 };
