@@ -1,0 +1,33 @@
+ Reverse Integer
+Link - https://leetcode.com/problems/reverse-integer/
+Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.
+
+Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+
+
+Approach -
+1. first ideally we should check if it's a positie integer or negative and keeping it in variable for later use. 
+2.Then we should make the number the value positive using Math.abs .
+3.then we should check tillour no. is not equal to 0 and doing operation  - (i) Modulo the number with 10 to get last digit then divinding the actual no. with 10 to remove it.
+4. once done we should make a check with our result that till the time outr no. hasn't been > 2**31-1 or if it's eqaul to this then the modulo no. should not excced to 7 because adding seven to our result will overflo the no. and we can return 0.
+5. else we can multiply our result with 10 and can add the modulo digit in it which we have done previously and while retuning the result at end we can multiply out result with the positive or negative sign that we have store previously.
+
+Code- 
+
+var reverse = function(x) {
+    let sign = x <0 ? -1: 1;
+    x = Math.abs(x);
+    let result = 0;
+    while (x !==0) {
+        let digit= x % 10;
+        x =  Math.floor(x/10);
+        if (result > Math.floor((2 ** 31 -1)/10) ||
+         (result ===Math.floor((2 ** 31 -1)/10) && digit >7)) {
+            return 0;
+         } else {
+            result = result *10 +digit;
+         }
+    }
+    return result* sign;
+
+};
