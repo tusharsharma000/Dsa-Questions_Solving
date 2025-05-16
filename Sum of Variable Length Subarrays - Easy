@@ -1,0 +1,28 @@
+Sum of Variable Length Subarrays - https://leetcode.com/problems/sum-of-variable-length-subarrays/description/ - Easy
+
+You are given an integer array nums of size n. For each index i where 0 <= i < n, define a subarray nums[start ... i] where start = max(0, i - nums[i]).
+
+Return the total sum of all elements from the subarray defined for each index in the array.
+
+ Approach -
+1. you will take one array for storing the preffix sum of each element till current index and mark 0th index as same as given array[0] . 
+2. create a sum variable to store the sum that need to return.Then need to keep check of this condition for out starting index start = max(0, i - nums[i]);
+3. now we should check if start is not zero then we can do preffixsum[i] - array[start - 1] , this will remove the sum from current subrarray and we can add it to result
+
+Code - 
+
+var subarraySum = function(nums) {
+    let sum = nums[0];
+    let arr = [];
+    arr[0] = nums[0];
+    for (let i = 1;i<nums.length;i++) {
+        let start = Math.max(0, i - nums[i]);
+        arr[i] = (nums[i] + arr[i-1]);
+         if (start !== 0) {
+             sum += arr[i] -arr[start -1];
+         } else {
+             sum += arr[i];
+         }
+    }
+    return sum;
+};
