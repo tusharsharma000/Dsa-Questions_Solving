@@ -1,0 +1,40 @@
+Implement Rand10() Using Rand7() - https://leetcode.com/problems/implement-rand10-using-rand7/description/ - Medium
+
+Given the API rand7() that generates a uniform random integer in the range [1, 7], write a function rand10() that generates a uniform random integer in the range [1, 10]. You can only call the API rand7(), and you shouldn't call any other API. Please do not use a language's built-in random API.
+
+Each test case will have one internal argument n, the number of times that your implemented function rand10() will be called while testing. Note that this is not an argument passed to rand10().
+
+Example 1:
+
+Input: n = 1
+Output: [2]
+Example 2:
+
+Input: n = 2
+Output: [2,8]
+
+Approach - we can't get the equal probability of 1-7 for 10 since it will return no. between 1-7 and we want equal probability for each no. from 1-10. So what we can do is we can basically generate a random 7() again
+so we'll get 7*7  = 49  outcomes like 1,1 till 7,7 so we can consider them as row and col and 1,1 can be considered as 1st  and 1,2 can be considered as 2 and so on till 7,7 which can be 49.
+But ideally, the first 9 numbers will have a probability of 5/49 and the 10th one would have 4/49 which is not equal for each of them. So we need to find the highest common factor for 10 which will be 40- 10*4. so probability for each
+element would be 4/49 or 4/40 equal.
+Now to calculate the number that is returned we can have (row-1)*7 + col. let's suppose we got 3,3 so the row would be 3-1 =2 * 7 since each row has seven no and + current col which is 3 so 14+3 = 17;
+now let's suppose we got 7,7  which will return us 49 so, in that case, we can call the random function again to regenerate the no. and the modulo we are doing at the end is to make the num between 1-10   and 1
+
+1,1 1,2 1,3 1,4 1,5 1,6 1,7
+2,1 2,2 2,3 2,4 2,5 2,6 2,7
+3,1 3,2 3,3 3,4 3,5 3,6 3,7
+4,1 4,2 4,3 4,4 4,5 4,6 4,7
+5,1 5,2 5,3 5,4 5,5 5,6 5,7
+6,1 6,2 6,3 6,4 6,5 6,6 6,7
+7,1 7,2 7,3 7,4 7,5 7,6 7,7
+
+
+Code - 
+var rand10 = function() { let value = 0;
+    do {
+        let a = rand7();
+        let b = rand7();
+        value = (a-1)*7+ b;
+    } while(value>40)
+    return value%10 +1
+};
