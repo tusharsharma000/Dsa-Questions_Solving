@@ -1,0 +1,50 @@
+Find Greatest Common Divisor of Array -https://leetcode.com/problems/find-greatest-common-divisor-of-array/description/ -  Easy 
+
+Given an integer array nums, return the greatest common divisor of the smallest number and largest number in nums.
+
+The greatest common divisor of two numbers is the largest positive integer that evenly divides both numbers.
+
+
+Example 1:
+
+Input: nums = [6,7,9]
+Output: 3
+Explanation:
+The smallest number in nums is 6.
+The largest number in nums is 9.
+The greatest common divisor of 6 and 9 is 3.
+Since both are divisible by 3.
+
+Approach -  Fist we 'll find largest and smallest no., from array then max % min till min get 0 and keeping the value of min in temp and doing min = max%min  and max will be update as last min.
+
+Code - var findGCD = function(nums) {
+    let min = nums[0], max= nums[0];
+    for (let i=0;i<nums.length;i++) {
+        min = Math.min(nums[i], min);
+        max =Math.max(nums[i], max);
+    }
+    while(min !==0) {
+        let temp = min;
+        min = max%min;
+        max=  temp;
+    }
+    return max
+};
+
+
+one More Approach  - using const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+it also does same as above is doing but in better way
+gcd(48, 18)
+=> gcd(18, 48 % 18) = gcd(18, 12)
+=> gcd(12, 18 % 12) = gcd(12, 6)
+=> gcd(6, 12 % 6) = gcd(6, 0)
+=> 6
+
+Code - 
+const gcd = (a, b) => b == 0 ? a : gcd(b, a % b);
+
+const findGCD = (a) => {
+    let max = Math.max.apply(Math, a);
+    let min = Math.min.apply(Math, a);
+    return gcd(min, max);
+};
